@@ -12,8 +12,8 @@ This project investigates the causal relationship between race & industry and un
 │   └── monthly data/       # https://www.bls.gov/news.release/empsit.toc.htm
 ├── pgm-unemployment-rate/  # Code and output
 │   ├── Causal Inference of Labor Market Inequality Using PGM： A multidimensional analysis of unemployment rate.html/     # Full output of the analysis
-│   └── index.qmd/          # Quarto file: main working file that links to notebook and reference
-├── images/                 # Saved images that are sourced in the index.qmd file
-├── requirement.txt/        # Packages that are needed
-└── _quarto.yaml/           # Define rendered file formats
+│   ├── index.qmd/          # Quarto file: main working file that links to notebook and reference
+│   ├── images/                 # Saved images that are sourced in the index.qmd file
+│   ├── requirement.txt/        # Packages that are needed
+│   └── _quarto.yaml/           # Define rendered file formats
 ```
