@@ -1,19 +1,22 @@
-# 📘 Causal Inference of Labor Market Inequality Using PGM: A multidimensional analysis of unemployment rate and durations
+# 📘 Causal Inference of Labor Market Inequality Using PGM: A multidimensional analysis of unemployment rate
 
 ## 📌 Overview
 
-This project investigates the causal relationship between race & industry and unemployment rate using causal inference methods such as PGM and Bayesian modeling. The goal is to understand the effect of [Race] and [Industry] on [Unemployment Vulnerability].
+This project investigates the causal relationship between race & industry and unemployment rate using causal inference methods such as PGM and Bayesian modeling. The goal is to understand the effect of [Race] and [Industry] on [Unemployment Vulnerability], and the interactive effect between recent graduates and education attainment. 
 
 ## 🗂️ Repository Structure
 
-```bash
-├── data/                   # Raw and processed datasets from BLS website
-│   ├── survey data/        # https://www2.census.gov/programs-surveys/cps/datasets/
-│   └── monthly data/       # https://www.bls.gov/news.release/empsit.toc.htm
-├── pgm-unemployment-rate/  # Code and output
-│   ├── Causal Inference of Labor Market Inequality Using PGM： A multidimensional analysis of unemployment rate.html/     # Full output of the analysis
-│   ├── index.qmd/          # Quarto file: main working file that links to notebook and reference
-│   ├── images/                 # Saved images that are sourced in the index.qmd file
-│   ├── requirement.txt/        # Packages that are needed
-│   └── _quarto.yaml/           # Define rendered file formats
-```
+causal-inference/
+└─ unemployment-rate-by-demographics/
+   ├─ data/
+   │  └─ survey_data
+   │  └─ unemployment_rate_by_race
+   │  └─ unemployment_rate_by_industry
+   ├─ pgm-unemployment-rate/
+   │  └─ index_files/
+   │     └─ index.qmd
+   │     └─ _quarto.yml
+   │     └─ requirements.txt
+   │     └─ styles.css
+   │     └─ Causal Inference of Labor Market Inequality Using PGM： A multidimensional analysis of unemployment rate.html
+   └─ README.md
