@@ -26,5 +26,4 @@ causal-inference/
 
 [📄 View HTML Report](pgm-unemployment-rate/Causal%20Inference%20of%20Labor%20Market%20Inequality%20Using%20PGM%EF%BC%9A%20A%20multidimensional%20analysis%20of%20unemployment%20rate.html)
 
-<img width="609" height="716" alt="image" src="https://github.com/user-attachments/assets/b9c8bdef-d42d-4125-baaf-f826814e076f" />
 
