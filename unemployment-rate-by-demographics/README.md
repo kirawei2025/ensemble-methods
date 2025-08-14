@@ -6,6 +6,8 @@ This project investigates the causal relationship between race & industry and un
 
 ## 🗂️ Repository Structure
 
+bash
+```
 causal-inference/
 └─ unemployment-rate-by-demographics/
    ├─ data/
@@ -20,3 +22,4 @@ causal-inference/
    │     └─ styles.css
    │     └─ Causal Inference of Labor Market Inequality Using PGM： A multidimensional analysis of unemployment rate.html
    └─ README.md
+```
