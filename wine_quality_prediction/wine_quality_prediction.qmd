@@ -47,11 +47,14 @@ Create pairplot to observe the relationship between variables colored by "qualit
 ```{python}
 # create pairplot
 pairplot = sns.pairplot(wq_data, hue="quality", diag_kind="hist")
-pairplot.fig.suptitle("Pairplot", fontsize=30, y=1.02);
+pairplot.fig.suptitle("Pairplot", fontsize=50, y=1.02);
 ```
 Visually alhocols with higher levels of "Sulphates", "Alcohol", "Residual Sugar" tend to have higher quality. Next, let's graph the correlation between features and "Quality" directly.
 
 ```{python}
-
-
+# create correlation map
+fig, ax = plt.subplots(figsize = (10,7), dpi=150)
+sns.heatmap(wq_data.corr(), annot=True, linewidths=2, fmt = '.2f', cmap="crest", ax = ax)
+fig.suptitle("Correlation - wine features vs. wine quality scores", fontsize=18, y=1.02, x=0.5)
+plt.tight_layout()
 ```
