@@ -1,0 +1,57 @@
+---
+title: "Wine Quality Prediction Using Stacking Model And Hyperparameter Tuning"
+format: html
+---
+
+## Import packages
+```{python}
+import warnings
+warnings.filterwarnings('ignore')
+# Loading the necessary packages
+import random
+from seaborn.palettes import color_palette
+random.seed(1296)
+import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np
+import pandas as pd
+from pandas import read_csv
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.svm import SVC
+from sklearn.linear_model import SGDClassifier
+from sklearn.metrics import confusion_matrix, classification_report
+from sklearn.preprocessing import StandardScaler, LabelEncoder
+from sklearn.model_selection import train_test_split, GridSearchCV, cross_val_score
+```
+
+## Data
+```{python}
+# Load the dataset
+wq_data = read_csv("dataset/winequality-red.csv",header=0)
+style = [
+    {'selector': 'th', 'props': [
+        ('background-color', '#373c41ff'),
+        ('color', 'white'),
+        ('font-weight', 'bold')
+    ]}
+]
+display(wq_data.head(5).style.set_table_styles(style).format("{:.2f}"))
+display(wq_data.describe().style.set_table_styles(style).format("{:.2f}"))
+```
+
+There are 11 alcohol features in the dataset with 1 variable "quality" representing the evaluated alcohol quality that we are going to predict. The quality scores range from 3 to 8 in the dataset.
+
+## EDA
+### Pairplot
+Create pairplot to observe the relationship between variables colored by "quality"
+```{python}
+# create pairplot
+pairplot = sns.pairplot(wq_data, hue="quality", diag_kind="hist")
+pairplot.fig.suptitle("Pairplot", fontsize=30, y=1.02);
+```
+Visually alhocols with higher levels of "Sulphates", "Alcohol", "Residual Sugar" tend to have higher quality. Next, let's graph the correlation between features and "Quality" directly.
+
+```{python}
+
+
+```
