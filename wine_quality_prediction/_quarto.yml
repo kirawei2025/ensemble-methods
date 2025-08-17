@@ -1,24 +1,10 @@
-project: 
+project:
   type: website
   output-dir: docs
 
 website:
-  page-navigation: true  
+  page-navigation: true
   title: "Wine Quality Prediction"
-#   sidebar:
-#     toc: true
-#     pinned: true
-#     align: center
-# #     tools:  
-# #       - icon: github
-# # #        href: https://github.com/nasa-openscapes/2021-Cloud-Hackathon
-# #         text: "Stacking model - Wine quality prediction project"
-
-#     style: "docked"
-#     search: true
-# #    collapse-level: 2
-#     contents:
-#       - wine_quality_prediction.qmd
 
 format:
   html:
@@ -28,4 +14,3 @@ format:
     code-copy: true
     css: styles.css
     toc: true
-

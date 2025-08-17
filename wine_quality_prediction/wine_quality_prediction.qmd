@@ -51,10 +51,52 @@ pairplot.fig.suptitle("Pairplot", fontsize=50, y=1.02);
 ```
 Visually alhocols with higher levels of "Sulphates", "Alcohol", "Residual Sugar" tend to have higher quality. Next, let's graph the correlation between features and "Quality" directly.
 
+### Correlation Heatmap
 ```{python}
 # create correlation map
 fig, ax = plt.subplots(figsize = (10,7), dpi=150)
 sns.heatmap(wq_data.corr(), annot=True, linewidths=2, fmt = '.2f', cmap="crest", ax = ax)
-fig.suptitle("Correlation - wine features vs. wine quality scores", fontsize=18, y=1.02, x=0.5)
+ax.set_title("Correlation - wine features vs. wine quality scores", fontsize=18, y=1.02, x=0.5)
+ax.tick_params(axis='x', rotation=45);
 plt.tight_layout()
 ```
+From the correlation heatmap, "Volatile acidity" is negatively correlated with "Quality"; "Alcohol" and "Citric acid" are positively correlated with "Quality". Next, let's plot the distribution of these three features for each alchohol quality from 3 to 8.
+
+### Density plot
+```{python}
+def melt_table(df, quality):
+    # filter for quality subset
+    df_subset = df[df['quality'] == quality]
+    df_subset_melted = df_subset.melt(
+        value_vars = ['alcohol','volatile acidity','citric acid'],
+        var_name = 'wine_feature',
+        value_name = 'value'
+    )
+    df_subset_melted['quality'] = quality
+    return df_subset_melted
+
+merged_df = pd.DataFrame()
+min_q = wq_data['quality'].min()
+max_q = wq_data['quality'].max()
+for q in range(min_q, max_q+1):
+    merged_df = pd.concat([merged_df, melt_table(wq_data, q)])
+```
+
+```{python}
+pairs = ((i,j) for i in [0, 1] for j in [0, 1, 2])
+# Density plot
+fig, axes = plt.subplots(2, 3, figsize = (20, 15), sharex=True, sharey=True, dpi=200)
+for ax in axes.flat:
+    ax.tick_params(axis='x', which='both', labelbottom=True)
+q = 3
+for idx, pair in enumerate(pairs):
+    axes[pair[0], pair[1]].set_facecolor('#f2f3f4ff')
+    axes[pair[0], pair[1]].set_axisbelow(True)
+    axes[pair[0], pair[1]].grid(True, color = 'white', linewidth = 1)
+    sns.kdeplot(ax = axes[pair[0], pair[1]], data = merged_df[merged_df['quality']==q], x = 'value', hue='wine_feature', fill=True, palette='gist_earth')
+    q+=1
+    axes[pair[0], pair[1]].set_title(f'Alcohol Quality = {q-1}')
+fig.suptitle('Wine features density distributions by wine quality scores', y=1.01, fontsize = 35)
+plt.tight_layout()
+```
+The density plot shows that obviously the higher quality alchohol has higher "alcohol" levels and relatively lower "Volatile acid' and "Citrid acid".
