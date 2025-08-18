@@ -91,12 +91,66 @@ for ax in axes.flat:
 q = 3
 for idx, pair in enumerate(pairs):
     axes[pair[0], pair[1]].set_facecolor('#f2f3f4ff')
-    axes[pair[0], pair[1]].set_axisbelow(True)
+    axes[pair[0], pair[1]].set_axisbelow(True) # put the grid at the back of the layer
     axes[pair[0], pair[1]].grid(True, color = 'white', linewidth = 1)
     sns.kdeplot(ax = axes[pair[0], pair[1]], data = merged_df[merged_df['quality']==q], x = 'value', hue='wine_feature', fill=True, palette='gist_earth')
     q+=1
-    axes[pair[0], pair[1]].set_title(f'Alcohol Quality = {q-1}')
+    axes[pair[0], pair[1]].set_xlabel(f'Alcohol Quality = {q-1}')
 fig.suptitle('Wine features density distributions by wine quality scores', y=1.01, fontsize = 35)
 plt.tight_layout()
 ```
-The density plot shows that obviously the higher quality alchohol has higher "alcohol" levels and relatively lower "Volatile acid' and "Citrid acid".
+The density plot shows that obviously the higher quality alchohol has higher "Alcohol" levels and relatively lower "Volatile acid' and "Citrid acid".
+
+## Model
+```{python}
+# Import libraries
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.linear_model import LogisticRegression
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn import svm
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import GradientBoostingClassifier, BaggingClassifier, RandomForestClassifier
+from sklearn.naive_bayes import GaussianNB
+from sklearn.model_selection import cross_val_score, RepeatedKFold, train_test_split
+from xgboost import XGBClassifier
+from imblearn.over_sampling import SMOTE
+
+import warnings
+warnings.filterwarnings("ignore")
+```
+
+### Categorize quality scores
+In order to perform classification model, it's more resonable to use categorical variable by grouping "quality" into low (3-4), medium (5-6), high (7-8) instead of using the quality score directly.
+```{python}
+# map quality_cat from quality
+wq_data['quality_cat'] = np.where(
+    wq_data['quality'].isin([3,4]), 'low',
+    np.where(
+        wq_data['quality'].isin([5,6]), 'medium', 'high')
+)
+```
+
+### Train-test split
+Before train-test split, for check the balance of the dataset by classes
+```{python}
+wq_data['quality_cat'].value_counts()
+```
+
+Apparently, the count of "low" and "high" are under-representing in the dataset. To balance it, we are using the resample method to oversample these 2 classes
+
+```{python}
+# resample the minority classes
+smote = SMOTE()
+X = wq_data[['alcohol', 'volatile acidity', 'citric acid']]
+y = wq_data['quality_cat']
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2)
+X_train_res, y_train_res = smote.fit_resample(X_train, y_train)
+```
+
+### Baseline model
+```{python}
+
+```
